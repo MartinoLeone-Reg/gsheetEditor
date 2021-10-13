@@ -3,13 +3,6 @@ const express = require("express")
 const {google} = require("googleapis")
 const app=express()
 
-app.get('/',function(req,res){
-   
-});
-app.get('/python/:text',function(req,res){
-    var msg=req.params.text;
-    console.log("python: " + msg);
-});
 app.get("/update/:scenario/:result",async (req,res)=>{
     let funcName=req.params.scenario;
     let result=req.params.result;
