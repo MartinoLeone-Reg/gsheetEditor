@@ -3,47 +3,13 @@ const express = require("express")
 const {google} = require("googleapis")
 const app=express()
 
-app.get("/test",async (req,res)=>{
-    //let scenario=req.params.scenario;
-    //let result=req.params.result;
-    const spreadsheetId="10bZv1rpNSSW9_JhpxK5i3IqhdxwnEQbGfD9Lec4AU5Y"
-    const sheetName="Foglio1"
-
-    const auth = new google.auth.GoogleAuth({
-        keyFile: "credentials.json",
-        scopes: "https://www.googleapis.com/auth/spreadsheets",
-      });
-    //auth
-
-    const client = await auth.getClient();
-    // insance of google sheets api
-
-    const googleSheets= google.sheets({version:"v4",auth: client})
-
-    //get metadata 
-    const metaData = await googleSheets.spreadsheets.get({
-        auth,
-        spreadsheetId,
-      });
-    // read rows
-    const getRows = await googleSheets.spreadsheets.values.get({
-        auth,
-        spreadsheetId,
-        range: sheetName,
-    })
-    /*
-    await googleSheets.spreadsheets.values.set(
-        auth,
-        spreadsheetId,
-        range: sheetName+"!A:B",
-        vali   
-    )*/
-    //const obj = JSON.parse(test);
-
-    //fot(let i=0;getRows.\)
-    res.send(getRows.data)
-})
-
+app.get('/',function(req,res){
+   
+});
+app.get('/python/:text',function(req,res){
+    var msg=req.params.text;
+    console.log("python: " + msg);
+});
 app.get("/update/:scenario/:result",async (req,res)=>{
     let funcName=req.params.scenario;
     let result=req.params.result;
@@ -83,6 +49,7 @@ app.get("/update/:scenario/:result",async (req,res)=>{
             })
         }
     }
+    res.send("successo")
 })
 
 app.listen(1337,(req,res)=>console.log("running on 1337"))
